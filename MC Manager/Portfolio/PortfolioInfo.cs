@@ -25,9 +25,9 @@ namespace MC_Manager.Portfolio
             get
             {
                 if (WorldInfo == null)
-                    return $"{this.Folder.DisplayName} (local)";
+                    return $"{this.Folder.DisplayName} (server)";
 
-                return $"{this.WorldInfo.Name} (server)";
+                return $"{this.WorldInfo.Name} (local)";
             }
         }
 
