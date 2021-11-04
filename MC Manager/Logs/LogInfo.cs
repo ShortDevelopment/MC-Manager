@@ -18,7 +18,7 @@ namespace MC_Manager.Logs
         {
             get
             {
-                using (IRandomAccessStream fileStream = this.File.OpenSync(FileAccessMode.Read))
+                using (IRandomAccessStream fileStream = this.File.OpenReadAsync().Await())
                 using (Stream stream = fileStream.AsStream())
                 using (StreamReader reader = new StreamReader(stream))
                 {

@@ -19,7 +19,7 @@ namespace MC_Manager.Portfolio
         {
             get
             {
-                using (IRandomAccessStream fileStream = File.OpenSync(FileAccessMode.Read))
+                using (IRandomAccessStream fileStream = File.OpenReadAsync().Await())
                 {
                     BitmapImage bitmapImage = new BitmapImage();
                     bitmapImage.SetSource(fileStream);

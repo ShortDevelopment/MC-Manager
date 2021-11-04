@@ -18,7 +18,7 @@ namespace MC_Manager.Worlds
         {
             get
             {
-                using (IRandomAccessStream fileStream = this.Folder.GetFileSync("levelname.txt").OpenSync(FileAccessMode.Read))
+                using (IRandomAccessStream fileStream = this.Folder.GetFileAsync("levelname.txt").Await().OpenReadAsync().Await())
                 using (Stream stream = fileStream.AsStream())
                 using (StreamReader reader = new StreamReader(stream))
                 {
@@ -32,7 +32,7 @@ namespace MC_Manager.Worlds
         {
             get
             {
-                using (IRandomAccessStream fileStream = this.Folder.GetFileSync("world_icon.jpeg").OpenSync(FileAccessMode.Read))
+                using (IRandomAccessStream fileStream = this.Folder.GetFileAsync("world_icon.jpeg").Await().OpenReadAsync().Await())
                 {
                     BitmapImage bitmapImage = new BitmapImage();
                     bitmapImage.SetSource(fileStream);
