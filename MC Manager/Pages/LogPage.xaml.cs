@@ -38,7 +38,7 @@ namespace MC_Manager.Pages
 
         public Logs.LogInfo[] LogInfos { get; private set; }
 
-        private void logSelectListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void logSelectListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (logSelectListBox.SelectedIndex < 0)
                 return;
@@ -46,7 +46,8 @@ namespace MC_Manager.Pages
             Logs.LogInfo logInfo = this.LogInfos[logSelectListBox.SelectedIndex];
 
             LogTextBox.Text = "";
-            LogTextBox.Text = logInfo.Content;
+            string content = await logInfo.GetContentAsync();
+            LogTextBox.Text = content;
         }
     }
 }

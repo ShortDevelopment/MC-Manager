@@ -1,4 +1,6 @@
-﻿using Windows.Storage;
+﻿using System;
+using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -15,17 +17,18 @@ namespace MC_Manager.Portfolio
         public string Name { get => this.File.DisplayName; }
         public StorageFile File { get; private set; }
 
-        public ImageSource Image
+        public async Task InitializeAsync()
         {
-            get
+            using (IRandomAccessStream fileStream = await File.OpenReadAsync())
             {
-                using (IRandomAccessStream fileStream = File.OpenReadAsync().Await())
-                {
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.SetSource(fileStream);
-                    return bitmapImage;
-                }
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.DecodePixelWidth = 100;
+                bitmapImage.DecodePixelHeight = 100;
+                bitmapImage.SetSource(fileStream);
+                this.Image = bitmapImage;
             }
         }
+
+        public ImageSource Image { get; private set; }
     }
 }

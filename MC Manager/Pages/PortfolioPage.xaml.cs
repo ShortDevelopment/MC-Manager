@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
@@ -54,7 +55,10 @@ namespace MC_Manager.Pages
             portfolioItemGridView.ItemsSource = null;
 
             Portfolio.PortfolioInfo portfolio = this.Portfolios[portfolioSelectListBox.SelectedIndex];
-            portfolioItemGridView.ItemsSource = await portfolio.GetItemsAsync();
+
+            Portfolio.PortfolioItemInfo[] items = await portfolio.GetItemsAsync();
+            await Task.WhenAll(items.Select((item) => item.InitializeAsync()));
+            portfolioItemGridView.ItemsSource = items;
 
             loadingIndicator.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }

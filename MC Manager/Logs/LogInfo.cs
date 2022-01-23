@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
@@ -14,16 +16,13 @@ namespace MC_Manager.Logs
         public string Name { get => this.File.DisplayName; }
         public StorageFile File { get; private set; }
 
-        public string Content
+        public async Task<string> GetContentAsync()
         {
-            get
+            using (IRandomAccessStream fileStream = await File.OpenReadAsync())
+            using (Stream stream = fileStream.AsStream())
+            using (StreamReader reader = new StreamReader(stream))
             {
-                using (IRandomAccessStream fileStream = this.File.OpenReadAsync().Await())
-                using (Stream stream = fileStream.AsStream())
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    return reader.ReadToEnd().Replace("\n", "\r\n");
-                }
+                return reader.ReadToEnd().Replace("\n", "\r\n");
             }
         }
     }
