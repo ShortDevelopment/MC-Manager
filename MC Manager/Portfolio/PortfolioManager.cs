@@ -11,25 +11,18 @@ namespace MC_Manager.Portfolio
 
         public static async Task<PortfolioInfo[]> GetAvailablePortfoliosAsync()
         {
-            try
-            {
-                Worlds.WorldInfo[] worlds = await Worlds.WorldManager.GetWorldsAsync();
-                string[] worldIds = worlds.Select((x) => x.Id).ToArray();
+            Worlds.WorldInfo[] worlds = await Worlds.WorldManager.GetWorldsAsync();
+            string[] worldIds = worlds.Select((x) => x.Id).ToArray();
 
-                string path = ScreenshotsDirPath;
-                StorageFolder screenshotsDir = await StorageFolder.GetFolderFromPathAsync(path);
-                return (await screenshotsDir.GetFoldersAsync()).Select((dir) =>
-                {
-                    if (worldIds.Contains(dir.Name))
-                        return new PortfolioInfo(dir, worlds.First((x) => x.Id == dir.Name));
-
-                    return new PortfolioInfo(dir);
-                }).ToArray();
-            }
-            catch
+            string path = ScreenshotsDirPath;
+            StorageFolder screenshotsDir = await StorageFolder.GetFolderFromPathAsync(path);
+            return (await screenshotsDir.GetFoldersAsync()).Select((dir) =>
             {
-                return new PortfolioInfo[] { };
-            }
+                if (worldIds.Contains(dir.Name))
+                    return new PortfolioInfo(dir, worlds.First((x) => x.Id == dir.Name));
+
+                return new PortfolioInfo(dir);
+            }).ToArray();
         }
     }
 }

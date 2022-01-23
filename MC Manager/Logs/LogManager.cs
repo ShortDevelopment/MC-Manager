@@ -12,15 +12,8 @@ namespace MC_Manager.Logs
 
         public static async Task<LogInfo[]> GetAvailableLogsAsync(string dirPath)
         {
-            try
-            {
-                StorageFolder screenshotsDir = await StorageFolder.GetFolderFromPathAsync(dirPath);
-                return (await screenshotsDir.GetFilesAsync()).Select((file) => new LogInfo(file)).ToArray();
-            }
-            catch
-            {
-                return new LogInfo[] { };
-            }
+            StorageFolder screenshotsDir = await StorageFolder.GetFolderFromPathAsync(dirPath);
+            return (await screenshotsDir.GetFilesAsync()).Select((file) => new LogInfo(file)).ToArray();
         }
     }
 }

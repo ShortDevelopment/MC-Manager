@@ -20,8 +20,15 @@ namespace MC_Manager.Pages
 
             loadingIndicator.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
-            this.WorldInfos = await Worlds.WorldManager.GetWorldsAsync();
-            worldsListView.ItemsSource = WorldInfos;
+            try
+            {
+                this.WorldInfos = await Worlds.WorldManager.GetWorldsAsync();
+                worldsListView.ItemsSource = WorldInfos;
+            }
+            catch
+            {
+                MissingPermissionInfo.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            }
 
             loadingIndicator.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }

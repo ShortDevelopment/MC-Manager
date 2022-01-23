@@ -6,10 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="Transparent">
 
     <Grid>
-        <TextBlock Style="{StaticResource HeaderTextBlockStyle}" HorizontalAlignment="Center" Text="Welcome!" Margin="20" />
+        <TextBlock Style="{StaticResource HeaderTextBlockStyle}" HorizontalAlignment="Center" Text="Welcome!" Margin="0,50,0,0" />
         <StackPanel VerticalAlignment="Center">
             <TextBlock FontSize="15" TextAlignment="Center" TextWrapping="Wrap">
                 You need to give permissions to "File system" in order to let the app have access to the portfolio and logs of Minecraft!<LineBreak />

@@ -11,15 +11,8 @@ namespace MC_Manager.Worlds
 
         public static async Task<WorldInfo[]> GetWorldsAsync()
         {
-            try
-            {
-                StorageFolder worldsDir = await StorageFolder.GetFolderFromPathAsync(McWorldsPath);
-                return (await worldsDir.GetFoldersAsync()).Select((folder) => new WorldInfo(folder)).ToArray();
-            }
-            catch
-            {
-                return new WorldInfo[] { };
-            }
+            StorageFolder worldsDir = await StorageFolder.GetFolderFromPathAsync(McWorldsPath);
+            return (await worldsDir.GetFoldersAsync()).Select((folder) => new WorldInfo(folder)).ToArray();
         }
     }
 }

@@ -28,9 +28,16 @@ namespace MC_Manager.Pages
 
             loadingIndicator.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
-            this.Portfolios = await Portfolio.PortfolioManager.GetAvailablePortfoliosAsync();
-            portfolioSelectListBox.ItemsSource = Portfolios.Select((potfolio) => potfolio.Name).ToArray();
-            portfolioSelectListBox.SelectedIndex = 0;
+            try
+            {
+                this.Portfolios = await Portfolio.PortfolioManager.GetAvailablePortfoliosAsync();
+                portfolioSelectListBox.ItemsSource = Portfolios.Select((potfolio) => potfolio.Name).ToArray();
+                portfolioSelectListBox.SelectedIndex = 0;
+            }
+            catch
+            {
+                MissingPermissionInfo.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            }
 
             loadingIndicator.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }

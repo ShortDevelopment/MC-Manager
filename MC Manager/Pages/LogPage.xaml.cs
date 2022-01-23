@@ -24,9 +24,16 @@ namespace MC_Manager.Pages
             if (DesignMode.DesignModeEnabled || DesignMode.DesignMode2Enabled)
                 return;
 
-            this.LogInfos = await Logs.LogManager.GetAvailableLogsAsync(logDirPath);
-            logSelectListBox.ItemsSource = LogInfos.Select((potfolio) => potfolio.Name).ToArray();
-            logSelectListBox.SelectedIndex = 0;
+            try
+            {
+                this.LogInfos = await Logs.LogManager.GetAvailableLogsAsync(logDirPath);
+                logSelectListBox.ItemsSource = LogInfos.Select((potfolio) => potfolio.Name).ToArray();
+                logSelectListBox.SelectedIndex = 0;
+            }
+            catch
+            {
+                MissingPermissionInfo.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            }
         }
 
         public Logs.LogInfo[] LogInfos { get; private set; }
