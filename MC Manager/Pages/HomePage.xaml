@@ -4,17 +4,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MC_Manager.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="Transparent">
 
     <Grid>
         <TextBlock Style="{StaticResource HeaderTextBlockStyle}" HorizontalAlignment="Center" Text="Welcome!" Margin="0,50,0,0" />
         <StackPanel VerticalAlignment="Center">
-            <TextBlock FontSize="15" TextAlignment="Center" TextWrapping="Wrap">
-                You need to give permissions to "File system" in order to let the app have access to the portfolio and logs of Minecraft!<LineBreak />
-                <Hyperlink NavigateUri="ms-settings:privacy-broadfilesystemaccess">Open Settings App</Hyperlink>
-            </TextBlock>
+            <controls:InfoBar IsOpen="True" Margin="10" HorizontalAlignment="Center"
+                              Severity="Warning" IsClosable="False"
+                              Title="Wait!">
+                <controls:InfoBar.Message>
+                    You need to give permissions to "File system" in order to let the app have access to the portfolio and logs of Minecraft!
+                </controls:InfoBar.Message>
+            </controls:InfoBar>
+            <HyperlinkButton HorizontalAlignment="Center"
+                NavigateUri="ms-settings:privacy-broadfilesystemaccess">Open Settings App</HyperlinkButton>
         </StackPanel>
     </Grid>
 
