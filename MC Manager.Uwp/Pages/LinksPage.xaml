@@ -14,6 +14,7 @@
             <TextBlock Text="Gameplay" Style="{StaticResource TitleTextBlockStyle}" Margin="0,10,0,0" />
             <GridView Padding="10">
                 <localcontrols:LinkButtonControl Title="MC Launcher" Description="Launch multiple version of Minecraft Bedrock" NavigationUri="https://github.com/MCMrARM/mc-w10-version-launcher" />
+                <localcontrols:LinkButtonControl Title="BedrockLauncher" Description="Launch multiple version of Minecraft Bedrock" NavigationUri="https://bedrocklauncher.github.io/" />
             </GridView>
 
             <TextBlock Text="Addons" Style="{StaticResource TitleTextBlockStyle}" Margin="0,10,0,0" />

@@ -1,0 +1,34 @@
+﻿<Page
+    x:Class="MC_Manager.Pages.LinksPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MC_Manager.Pages"
+    xmlns:localcontrols="using:MC_Manager.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d"
+    Background="Transparent">
+
+    <ScrollViewer>
+        <StackPanel Margin="10">
+            <TextBlock Text="Gameplay" Style="{StaticResource TitleTextBlockStyle}" Margin="0,10,0,0" />
+            <GridView Padding="10">
+                <localcontrols:LinkButtonControl Title="MC Launcher" Description="Launch multiple version of Minecraft Bedrock" NavigationUri="https://github.com/MCMrARM/mc-w10-version-launcher" />
+                <localcontrols:LinkButtonControl Title="BedrockLauncher" Description="Launch multiple version of Minecraft Bedrock" NavigationUri="https://bedrocklauncher.github.io/" />
+            </GridView>
+
+            <TextBlock Text="Addons" Style="{StaticResource TitleTextBlockStyle}" Margin="0,10,0,0" />
+            <GridView Padding="10">
+                <localcontrols:LinkButtonControl Title="Documentation" Description="Very good docs on addons and game mechanics" NavigationUri="https://bedrock.dev/" />                
+                <localcontrols:LinkButtonControl Title="Bridge" Description="A powerful IDE for Minecraft Add-Ons" NavigationUri="https://editor.bridge-core.app/" />
+                <localcontrols:LinkButtonControl Title="Blockbench" Description="A boxy 3D model editor" NavigationUri="https://web.blockbench.net/" />
+            </GridView>
+
+            <TextBlock Text="Server" Style="{StaticResource TitleTextBlockStyle}" Margin="0,10,0,0" />
+            <GridView Padding="10">
+                <localcontrols:LinkButtonControl Title="BDSX" Description="An extended version of the MC Bedrock Server that lets you create custom commands" NavigationUri="https://github.com/bdsx/bdsx" />
+                <localcontrols:LinkButtonControl Title="Examples" Description="Implementation examples" NavigationUri="https://github.com/ShortDevelopment/Minecraft-Bedrock" />
+            </GridView>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

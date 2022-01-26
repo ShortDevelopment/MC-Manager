@@ -1,0 +1,98 @@
+﻿<Page
+    x:Class="MC_Manager.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MC_Manager"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    controls:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    <Page.Resources>
+        <!--This top margin is the height of the custom TitleBar-->
+        <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+        <Thickness x:Key="NavigationViewContentGridBorderThickness">1,1,0,0</Thickness>
+        <CornerRadius x:Key="NavigationViewContentGridCornerRadius">8,0,0,0</CornerRadius>
+        <Thickness x:Key="NavigationViewHeaderMargin">56,34,0,0</Thickness>
+    </Page.Resources>
+    <Grid>
+        <Border x:Name="AppTitleBar"
+                Grid.Column="1"
+                IsHitTestVisible="True"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Margin="48,0,0,0"
+                Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"
+                Canvas.ZIndex="1">
+        </Border>
+        <controls:NavigationView x:Name="NavigationViewControl" PaneTitle="Minecraft Manager" ItemInvoked="NavigationViewControl_ItemInvoked"
+            IsTitleBarAutoPaddingEnabled="False"
+            Canvas.ZIndex="0"
+            IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+            <controls:NavigationView.MenuItems>
+                <controls:NavigationViewItem Content="Home" Tag="home" IsSelected="True">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xe80f;" />
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+                
+                <controls:NavigationViewItemHeader Content="Data Manager" />
+                <controls:NavigationViewItem Content="Worlds" Tag="manage_worlds">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xec50;" />
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+                <controls:NavigationViewItem Content="Portfolio" Tag="portfolio">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8B9;" />
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+
+                <controls:NavigationViewItemHeader Content="System" />
+                <controls:NavigationViewItem Content="WebSocket" Tag="websocket">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xe968;" />
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+                <controls:NavigationViewItem Content="Logs" SelectsOnInvoked="False">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8E4;" />
+                    </controls:NavigationViewItem.Icon>
+                    <controls:NavigationViewItem.MenuItems>
+                        <controls:NavigationViewItem Content="Windows 10" Tag="log_win10">
+                            <controls:NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE7FC;" />
+                            </controls:NavigationViewItem.Icon>
+                        </controls:NavigationViewItem>
+                        <controls:NavigationViewItem Content="Dedicated Server" Tag="log_server">
+                            <controls:NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE909;" />
+                            </controls:NavigationViewItem.Icon>
+                        </controls:NavigationViewItem>
+                    </controls:NavigationViewItem.MenuItems>
+                </controls:NavigationViewItem>
+            </controls:NavigationView.MenuItems>
+            <controls:NavigationView.FooterMenuItems>
+                <controls:NavigationViewItem Content="com.mojang Folder" Tag="open_com_mojang_folder" SelectsOnInvoked="False">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE838;" />
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+                <controls:NavigationViewItem Content="Documentation" Tag="open_docs" SelectsOnInvoked="False">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE736;" />
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+                <controls:NavigationViewItem Content="Links" Tag="show_links">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xe71b;" />
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+            </controls:NavigationView.FooterMenuItems>
+            <controls:NavigationView.Content>
+                <Frame x:Name="rootFrame" Background="Transparent" />
+            </controls:NavigationView.Content>
+        </controls:NavigationView>
+    </Grid>
+
+</Page>

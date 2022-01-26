@@ -1,0 +1,69 @@
+﻿<Page
+    x:Class="MC_Manager.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MC_Manager.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="Transparent">
+
+    <Grid>
+        <!--<Image Source="ms-appx:///Assets/Images/background.jpg" Stretch="UniformToFill" Opacity="0.5" />-->
+        
+        <StackPanel>
+            <CommandBar DefaultLabelPosition="Right">
+                <AppBarButton Label="Discussions" Click="DiscussionsAppBarButton_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xe8f2;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="Bug Report" Click="BugReportAppBarButton_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xebe8;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar>
+            <ScrollViewer>
+                <StackPanel HorizontalAlignment="Center">
+                    <Grid BorderBrush="#E8E8E8" BorderThickness="1" CornerRadius="3" Margin="5" Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xe789;" Margin="10" VerticalAlignment="Top" />
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="UI Bugs - Porting to WinUI 3 Desktop" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,10" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Row="1" TextWrapping="Wrap">
+                                As the restrictions of the UWP sandbox got bigger I chose to migrate to WinUI 3 Desktop.
+                                This allows me to have a standard win32 application but with the nice WinUI design we all know and love from UWP.
+                                As WinUI 3 still has some problems / bugs / missing features, I started tracking all UI related bugs <Hyperlink NavigateUri="https://github.com/ShortDevelopment/MC-Manager/issues/2">here</Hyperlink>.
+                            </TextBlock>
+                        </Grid>
+                    </Grid>
+                    <Grid BorderBrush="#E8E8E8" BorderThickness="1" CornerRadius="3" Margin="5" Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xe785;" Margin="10" VerticalAlignment="Top" />
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="WebSockets" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,10" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Row="1" TextWrapping="Wrap">
+                                You can now connect to the game via WebSockets to get events and send commands.
+                            </TextBlock>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -6,8 +6,7 @@
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    controls:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    mc:Ignorable="d">
     <Page.Resources>
         <!--This top margin is the height of the custom TitleBar-->
         <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
@@ -20,7 +19,6 @@
                 Grid.Column="1"
                 IsHitTestVisible="True"
                 VerticalAlignment="Top"
-                Background="Transparent"
                 Margin="48,0,0,0"
                 Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"
                 Canvas.ZIndex="1">
@@ -49,6 +47,11 @@
                 </controls:NavigationViewItem>
 
                 <controls:NavigationViewItemHeader Content="System" />
+                <controls:NavigationViewItem Content="WebSocket" Tag="websocket">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xe968;" />
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
                 <controls:NavigationViewItem Content="Logs" SelectsOnInvoked="False">
                     <controls:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8E4;" />
@@ -78,6 +81,7 @@
                         <FontIcon Glyph="&#xE736;" />
                     </controls:NavigationViewItem.Icon>
                 </controls:NavigationViewItem>
+                <controls:NavigationViewItemSeparator />
                 <controls:NavigationViewItem Content="Links" Tag="show_links">
                     <controls:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xe71b;" />

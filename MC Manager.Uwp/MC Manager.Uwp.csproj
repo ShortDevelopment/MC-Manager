@@ -146,6 +146,9 @@
     <Compile Include="Pages\LogPage.xaml.cs">
       <DependentUpon>LogPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\WebSocketPage.xaml.cs">
+      <DependentUpon>WebSocketPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\WorldsPage.xaml.cs">
       <DependentUpon>WorldsPage.xaml</DependentUpon>
     </Compile>
@@ -252,6 +255,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\WebSocketPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\WorldsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -281,6 +288,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Fonts\Fluent\Segoe Fluent Icons.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MCWebSocket\ShortDev.Minecraft.Bedrock.WebSocket.csproj">
+      <Project>{73fd78ed-6c52-47d5-8183-8f7d0adf1977}</Project>
+      <Name>ShortDev.Minecraft.Bedrock.WebSocket</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

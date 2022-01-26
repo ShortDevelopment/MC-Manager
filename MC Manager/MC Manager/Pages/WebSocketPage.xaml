@@ -1,0 +1,85 @@
+﻿<Page
+    x:Class="MC_Manager.Pages.WebSocketPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MC_Manager.Pages"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:portfolio="using:MC_Manager.Portfolio"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:controls2="using:MC_Manager.Controls"
+    mc:Ignorable="d"
+    Background="Transparent">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <controls:InfoBar IsOpen="True" IsClosable="False" Title="Tip"
+                              Margin="10">
+                <controls:InfoBar.Message>
+                    This tool allows to connect to Minecraft and get stats and execute commands
+                </controls:InfoBar.Message>
+            </controls:InfoBar>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <Grid VerticalAlignment="Top" Margin="10" BorderBrush="#E8E8E8" BorderThickness="1" CornerRadius="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox IsReadOnly="True" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Margin="5,0,0,0" x:Name="ConnectionStringTextBox">
+                    <TextBox.Resources>
+                        <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="Transparent" />
+                    </TextBox.Resources>
+                    <TextBox.Text>
+                        /connect localhost:3000
+                    </TextBox.Text>
+                </TextBox>
+                <Grid Width="1" Height="25" Margin="3" Background="#E8E8E8" Grid.Column="1" />
+                <AppBarButton Grid.Column="2" LabelPosition="Collapsed" x:Name="CopyButton" Click="CopyButton_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xe8c8;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </Grid>
+            <!--<CommandBar DefaultLabelPosition="Right" 
+                            Background="Transparent" HorizontalAlignment="Center">
+                    <AppBarButton Label="Start">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xe768;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+                    <AppBarButton Label="Stop">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xe71a;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+                </CommandBar>-->
+        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TextBox IsReadOnly="True" Grid.Column="0" x:Name="IncomingTextBox" TextWrapping="Wrap" AcceptsReturn="True" />
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox PlaceholderText="Command" x:Name="CommandTextBox" VerticalAlignment="Center" Margin="5,0,5,0" KeyDown="CommandTextBox_KeyDown" />
+                <Grid Width="1" Height="25" Margin="3" Background="#E8E8E8" Grid.Column="1" />
+                <AppBarButton Grid.Column="2" LabelPosition="Collapsed" Click="SendAppBarButton_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xe724;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
