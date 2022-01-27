@@ -12,6 +12,7 @@
                     <Style TargetType="FontIcon">
                         <Setter Property="FontFamily" Value="{StaticResource FluentIconsFont}" />
                     </Style>
+                    <SolidColorBrush x:Key="SystemControlBackgroundBaseLowBrush">#0000</SolidColorBrush>
                 </ResourceDictionary>
             </controls:XamlControlsResources.MergedDictionaries>
         </controls:XamlControlsResources>
