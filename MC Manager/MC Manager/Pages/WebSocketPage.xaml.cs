@@ -19,7 +19,7 @@ namespace MC_Manager.Pages
         }
 
         public Server WebSocketServer { get; private set; }
-        private async void Initialize()
+        private void Initialize()
         {
             if (DesignMode.DesignModeEnabled || DesignMode.DesignMode2Enabled)
                 return;

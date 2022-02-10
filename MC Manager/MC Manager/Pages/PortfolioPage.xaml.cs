@@ -86,7 +86,7 @@ namespace MC_Manager.Pages
             await Launcher.LaunchFileAsync(items[portfolioItemGridView.SelectedIndex].File);
         }
 
-        private async void CopyButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        private void CopyButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             if (portfolioItemGridView.SelectedIndex < 0)
                 return;
@@ -101,14 +101,14 @@ namespace MC_Manager.Pages
             Clipboard.SetContent(package);
         }
 
-        private async void ShareButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        private void ShareButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             DataTransferManagerInterop.ShowShareUIForWindow(
                 MainWindow.Current.As<IWindowNative>().WindowHandle
             );
         }
 
-        private async void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             DataRequest request = args.Request;
             DataRequestDeferral deferral = request.GetDeferral();

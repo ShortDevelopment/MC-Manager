@@ -35,6 +35,6 @@ namespace MC_Manager
             this.InitializeComponent();
         }
 
-        public static MainWindow Current { get; private set; }
+        public static new MainWindow Current { get; private set; }
     }
 }
