@@ -26,7 +26,7 @@
         <controls:NavigationView x:Name="NavigationViewControl" PaneTitle="Minecraft Manager" ItemInvoked="NavigationViewControl_ItemInvoked"
             IsTitleBarAutoPaddingEnabled="False"
             Canvas.ZIndex="0"
-            IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+            IsSettingsVisible="True" IsBackButtonVisible="Collapsed">
             <controls:NavigationView.MenuItems>
                 <controls:NavigationViewItem Content="Home" Tag="home" IsSelected="True">
                     <controls:NavigationViewItem.Icon>

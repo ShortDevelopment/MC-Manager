@@ -9,15 +9,18 @@ namespace MC_Manager
         public MainPage()
         {
             this.InitializeComponent();
-            
+
             MainWindow.Current.SetTitleBar(AppTitleBar);
 
             rootFrame.Navigate(typeof(Pages.HomePage));
         }
 
-        private void NavigationViewControl_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        private void NavigationViewControl_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             NavigationViewItem item = args.InvokedItemContainer as NavigationViewItem;
+
+            if (args.IsSettingsInvoked)
+                rootFrame.Navigate(typeof(Pages.SettingsPage));
             if (item?.Tag == null)
                 return;
 

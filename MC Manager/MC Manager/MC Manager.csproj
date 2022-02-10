@@ -22,6 +22,7 @@
 		<None Remove="Pages\LogPage.xaml" />
 		<None Remove="Pages\PortfolioPage.xaml" />
 		<None Remove="Pages\ServerSetupPage.xaml" />
+		<None Remove="Pages\SettingsPage.xaml" />
 		<None Remove="Pages\WebSocketPage.xaml" />
 		<None Remove="Pages\WorldsPage.xaml" />
 	</ItemGroup>
@@ -70,6 +71,12 @@
 		<Compile Update="Pages\WorldsPage.xaml.cs">
 			<DependentUpon>WorldsPage.xaml</DependentUpon>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Pages\SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 
 	<ItemGroup>
