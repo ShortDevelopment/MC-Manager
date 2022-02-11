@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:Microsoft.UI.Xaml.Controls" xmlns:controls2="using:MC_Manager.Controls" xmlns:controls1="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="Transparent">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -46,7 +46,13 @@
                 </controls1:GridSplitter.Element>
             </controls1:GridSplitter>
             <Grid Grid.Column="2">
-                <TextBox x:Name="LogTextBox" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" TextWrapping="Wrap" />
+                <TextBox x:Name="LogTextBox" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         IsReadOnly="True" TextWrapping="Wrap"
+                         BorderThickness="0" Background="Transparent">
+                    <TextBox.Resources>
+                        <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="Transparent" />
+                    </TextBox.Resources>
+                </TextBox>
             </Grid>
         </Grid>
     </Grid>

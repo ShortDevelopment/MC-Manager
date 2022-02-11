@@ -12,12 +12,13 @@ namespace MC_Manager
         public MainWindow()
         {
             Current = this;
+            this.InitializeComponent();
 
             // https://docs.microsoft.com/de-de/windows/apps/design/style/mica
-
-            IntPtr hWnd = MainWindow.Current.As<IWindowNative>().WindowHandle;
+            IntPtr hWnd = this.As<IWindowNative>().WindowHandle;
             var winId = Win32Interop.GetWindowIdFromWindow(hWnd);
             AppWindow window = AppWindow.GetFromWindowId(winId);
+            window.Title = "MC Manager";
             var titleBar = window.TitleBar;
             if (titleBar != null)
             {
@@ -27,12 +28,6 @@ namespace MC_Manager
                 titleBar.ButtonBackgroundColor = Colors.Transparent;
                 titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             }
-            else
-            {
-                ExtendsContentIntoTitleBar = true;
-            }
-
-            this.InitializeComponent();
         }
 
         public static new MainWindow Current { get; private set; }

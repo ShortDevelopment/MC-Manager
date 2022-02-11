@@ -4,15 +4,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MC_Manager.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="Transparent">
 
     <ScrollViewer>
         <StackPanel Padding="30,10,30,10">
+            <UserControl Height="20" />
+            <TextBlock Text="Settings" Style="{StaticResource SubtitleTextBlockStyle}"/>
+            <UserControl Height="15" />
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="300" x:Name="MojangFolderPathTextBox" PlaceholderText="com.mojang path" />
+                <Button Background="Transparent">
+                    <FontIcon Glyph="&#xe838;" />
+                </Button>
+            </StackPanel>
 
             <UserControl Height="20" />
-            <TextBlock Text="Info zu dieser App" Style="{StaticResource SubtitleTextBlockStyle}"/>
+            <TextBlock Text="About this App" Style="{StaticResource SubtitleTextBlockStyle}"/>
             <UserControl Height="15" />
 
             <TextBlock Style="{StaticResource BodyTextBlockStyle}">

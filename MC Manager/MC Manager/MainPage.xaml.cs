@@ -10,7 +10,7 @@ namespace MC_Manager
         {
             this.InitializeComponent();
 
-            MainWindow.Current.SetTitleBar(AppTitleBar);
+            // MainWindow.Current.SetTitleBar(AppTitleBar);
 
             rootFrame.Navigate(typeof(Pages.HomePage));
         }
