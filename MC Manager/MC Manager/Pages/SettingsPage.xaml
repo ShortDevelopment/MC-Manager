@@ -11,13 +11,19 @@
     <ScrollViewer>
         <StackPanel Padding="30,10,30,10">
             <UserControl Height="20" />
-            <TextBlock Text="Settings" Style="{StaticResource SubtitleTextBlockStyle}"/>
+            <TextBlock Text="Settings" Style="{StaticResource SubtitleTextBlockStyle}" />
             <UserControl Height="15" />
 
             <StackPanel Orientation="Horizontal">
-                <TextBox Width="300" x:Name="MojangFolderPathTextBox" PlaceholderText="com.mojang path" />
-                <Button Background="Transparent">
+                <TextBox Width="300" x:Name="MinecraftFolderPathTextBox" IsReadOnly="True"
+                         PlaceholderText="Minecraft Location" Header="Minecraft Location" />
+                <Button Background="Transparent" x:Name="PickMinecraftFolderButton" Click="PickMinecraftFolder_Click"
+                        VerticalAlignment="Bottom">
                     <FontIcon Glyph="&#xe838;" />
+                </Button>
+                <Button Background="Transparent" x:Name="ClearMinecraftFolderButton" Click="ClearMinecraftFolderButton_Click"
+                        VerticalAlignment="Bottom">
+                    <FontIcon Glyph="&#xe74d;" />
                 </Button>
             </StackPanel>
 

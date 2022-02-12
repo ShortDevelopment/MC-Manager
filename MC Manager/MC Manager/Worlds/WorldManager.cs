@@ -7,7 +7,7 @@ namespace MC_Manager.Worlds
 {
     public class WorldManager
     {
-        public static string McWorldsPath { get => System.IO.Path.Combine(Utils.UserLocalAppData, @"Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\"); }
+        public static string McWorldsPath { get => System.IO.Path.Combine(Utils.MinecraftPath, @"LocalState\games\com.mojang\minecraftWorlds\"); }
 
         public static async Task<WorldInfo[]> GetWorldsAsync()
         {

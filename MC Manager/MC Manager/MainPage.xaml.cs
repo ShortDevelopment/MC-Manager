@@ -56,7 +56,7 @@ namespace MC_Manager
                 case "open_com_mojang_folder":
                     try
                     {
-                        _ = Launcher.LaunchFolderPathAsync(System.IO.Path.Combine(Utils.UserLocalAppData, @"Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang"));
+                        _ = Launcher.LaunchFolderPathAsync(System.IO.Path.Combine(Utils.MinecraftPath, @"LocalState\games\com.mojang"));
                     }
                     catch { }
                     break;

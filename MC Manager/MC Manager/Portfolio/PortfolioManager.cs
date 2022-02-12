@@ -7,7 +7,7 @@ namespace MC_Manager.Portfolio
 {
     public static class PortfolioManager
     {
-        public static string ScreenshotsDirPath { get => System.IO.Path.Combine(Utils.UserLocalAppData, @"Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\screenshots\"); }
+        public static string ScreenshotsDirPath { get => System.IO.Path.Combine(Utils.MinecraftPath, @"LocalState\screenshots\"); }
 
         public static async Task<PortfolioInfo[]> GetAvailablePortfoliosAsync()
         {

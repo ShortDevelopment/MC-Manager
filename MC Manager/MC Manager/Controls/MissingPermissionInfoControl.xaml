@@ -13,9 +13,9 @@
         IsOpen="True"
         Severity="Error"
         Margin="10"
-        Title="Missing Permission">
+        Title="Error">
         <controls:InfoBar.Message>
-            You must enable access to file system in order to use this functionality! Have a look at the "Home" tab.
+            Make sure that you have selected the correct path in the settings and that you have enough permissions!
         </controls:InfoBar.Message>
     </controls:InfoBar>
 </UserControl>
