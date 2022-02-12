@@ -34,6 +34,11 @@
                         <FontIcon Glyph="&#xE8E5;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
+                <AppBarButton Label="Edit Nbt" IsEnabled="False">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xe70f;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
                 <AppBarSeparator />
                 <AppBarButton Label="Delete" x:Name="DeleteButton" Click="DeleteButton_Click" IsEnabled="False">
                     <AppBarButton.Icon>
@@ -54,7 +59,7 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Source="{x:Bind Image}" Stretch="Uniform" Margin="0,0,10,0" />
-                            <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource SubtitleTextBlockStyle}" Text="{x:Bind Name}" />
+                            <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource SubtitleTextBlockStyle}" controls2:McFormattedTextBlock.McFormattedText="{x:Bind Name}" />
                             <TextBlock Grid.Column="1" Grid.Row="1">
                             (<Run Text="{x:Bind Id}" />)
                             </TextBlock>
