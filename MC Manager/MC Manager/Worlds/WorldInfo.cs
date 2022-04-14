@@ -18,11 +18,18 @@ namespace MC_Manager.Worlds
         {
             get
             {
-                using (IRandomAccessStream fileStream = this.Folder.GetFileAsync("levelname.txt").Await().OpenReadAsync().Await())
-                using (Stream stream = fileStream.AsStream())
-                using (StreamReader reader = new StreamReader(stream))
+                try
                 {
-                    return reader.ReadToEnd();
+                    using (IRandomAccessStream fileStream = this.Folder.GetFileAsync("levelname.txt").Await().OpenReadAsync().Await())
+                    using (Stream stream = fileStream.AsStream())
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+                catch (System.Exception)
+                {
+                    return "ERROR";
                 }
             }
         }
@@ -32,11 +39,18 @@ namespace MC_Manager.Worlds
         {
             get
             {
-                using (IRandomAccessStream fileStream = this.Folder.GetFileAsync("world_icon.jpeg").Await().OpenReadAsync().Await())
+                try
                 {
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.SetSource(fileStream);
-                    return bitmapImage;
+                    using (IRandomAccessStream fileStream = this.Folder.GetFileAsync("world_icon.jpeg").Await().OpenReadAsync().Await())
+                    {
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.SetSource(fileStream);
+                        return bitmapImage;
+                    }
+                }
+                catch
+                {
+                    return null;
                 }
             }
         }
