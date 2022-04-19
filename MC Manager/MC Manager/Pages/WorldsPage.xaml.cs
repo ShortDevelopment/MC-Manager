@@ -2,6 +2,9 @@
 using Windows.ApplicationModel;
 using Windows.System;
 using Microsoft.UI.Xaml.Controls;
+using ShortDev.Minecraft.Nbt;
+using System.IO;
+using System.Diagnostics;
 
 namespace MC_Manager.Pages
 {
@@ -49,6 +52,17 @@ namespace MC_Manager.Pages
             if (worldsListView.SelectedIndex < 0)
                 return;
 
+        }
+
+        private void EditNbtButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            if (worldsListView.SelectedIndex < 0)
+                return;
+
+            Worlds.WorldInfo[] items = worldsListView.ItemsSource as Worlds.WorldInfo[];
+            string folderPath = items[worldsListView.SelectedIndex].Folder.Path;
+            var tag = NbtConvert.Convert(Path.Combine(folderPath, "level.dat"), useGzip: false);
+            Debug.Print($"Type: {tag.Type}, Name: {tag.Name}");
         }
     }
 }

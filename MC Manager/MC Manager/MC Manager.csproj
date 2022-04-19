@@ -38,6 +38,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\MCWebSocket\ShortDev.Minecraft.Bedrock.WebSocket.csproj" />
+		<ProjectReference Include="..\..\ShortDev.Minecraft.Nbt\ShortDev.Minecraft.Nbt.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
