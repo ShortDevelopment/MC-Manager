@@ -19,15 +19,6 @@ namespace MC_Manager
             var winId = Win32Interop.GetWindowIdFromWindow(hWnd);
             AppWindow window = AppWindow.GetFromWindowId(winId);
             window.Title = "MC Manager";
-            var titleBar = window.TitleBar;
-            if (titleBar != null)
-            {
-                titleBar.ExtendsContentIntoTitleBar = true;
-                titleBar.BackgroundColor = Colors.Transparent;
-                titleBar.InactiveBackgroundColor = Colors.Transparent;
-                titleBar.ButtonBackgroundColor = Colors.Transparent;
-                titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-            }
         }
 
         public static new MainWindow Current { get; private set; }
