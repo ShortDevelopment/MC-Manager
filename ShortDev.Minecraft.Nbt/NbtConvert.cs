@@ -22,33 +22,92 @@ namespace ShortDev.Minecraft.Nbt
         {
             using BinaryReader reader = new(stream);
             NbtTag tag = new();
-            ParseInternal(null, ref tag, reader);
+            while (ParseInternal(ref tag, reader, rootTag: true)) { }
             return tag;
         }
 
         // https://github.dev/natiiix/NbtEditor
-        public static void ParseInternal(NbtTag? parent, ref NbtTag hostTag, BinaryReader reader)
+        public static bool ParseInternal(ref NbtTag hostTag, BinaryReader reader, bool rootTag = false)
         {
+            if (reader.BaseStream.Position >= reader.BaseStream.Length - 1)
+                return false;
+
             NbtTag tag = new();
             tag.Type = (NbtTagType)reader.ReadByte();
             if (tag.Type == NbtTagType.End)
-            {
-                if (parent == null)
-                    return;
-                hostTag = parent;
-            }
+                return false;
 
             if (reader.BaseStream.Position >= reader.BaseStream.Length - 10)
-                return;
+                return false;
 
             ushort nameLength = reader.ReadUInt16();
             byte[] nameData = reader.ReadBytes(nameLength);
             tag.Name = System.Text.Encoding.UTF8.GetString(nameData);
 
-
+            if (tag.Type == NbtTagType.Compound)
+                while (ParseInternal(ref tag, reader)) { }
+            else
+                tag.Value = ParseTagValue(tag.Type, reader);
 
             hostTag.Children.Add(tag);
-            ParseInternal(tag, ref tag, reader);
+            return true;
+        }
+
+        static object? ParseTagValue(NbtTagType type, BinaryReader reader)
+        {
+            switch (type)
+            {
+                case NbtTagType.Byte:
+                    return reader.ReadByte();
+                case NbtTagType.Short:
+                    return reader.ReadInt16();
+                case NbtTagType.Int:
+                    return reader.ReadInt32();
+                case NbtTagType.Long:
+                    return reader.ReadInt64();
+                case NbtTagType.Float:
+                    return reader.ReadSingle();
+
+                case NbtTagType.Double:
+                    return reader.ReadDouble();
+                case NbtTagType.String:
+                    {
+                        ushort length = reader.ReadUInt16();
+                        return System.Text.Encoding.UTF8.GetString(reader.ReadBytes(length));
+                    }
+                case NbtTagType.ByteArray:
+                    {
+                        int length = reader.ReadInt32();
+                        return reader.ReadBytes(length);
+
+                    }
+                case NbtTagType.IntArray:
+                    {
+                        int length = reader.ReadInt32();
+                        int[] buffer = new int[length];
+                        for (int i = 0; i < length; i++)
+                            buffer[i] = reader.ReadInt32();
+                        return buffer;
+                    }
+                case NbtTagType.LongArray:
+                    {
+                        int length = reader.ReadInt32();
+                        long[] buffer = new long[length];
+                        for (int i = 0; i < length; i++)
+                            buffer[i] = reader.ReadInt64();
+                        return buffer;
+                    }
+                case NbtTagType.List:
+                    {
+                        NbtTagType listType = (NbtTagType)reader.ReadByte();
+                        int length = reader.ReadInt32();
+                        object?[] buffer = new object?[length];
+                        for (int i = 0; i < length; i++)
+                            buffer[i] = ParseTagValue(listType, reader);
+                        return buffer;
+                    }
+            }
+            return null;
         }
     }
 

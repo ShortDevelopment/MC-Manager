@@ -8,6 +8,8 @@ namespace ShortDev.Minecraft.Nbt
 
         public string Name { get; set; }
 
+        public object Value { get; set; }
+
         public List<NbtTag> Children { get; set; } = new();
     }
 }

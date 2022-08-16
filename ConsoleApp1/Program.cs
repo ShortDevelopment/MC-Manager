@@ -16,7 +16,17 @@ namespace ConsoleApp1
             //    tag = tag.Child;
             //} while (tag != null);
 
+            Print(tag, 0);
+
             Console.ReadLine();
+        }
+
+        static void Print(NbtTag tag, int nesting)
+        {
+            Console.WriteLine($"{"".PadLeft(nesting)}{tag.Name ?? "null"}: {tag.Value ?? "null"}");
+
+            foreach (var child in tag.Children)
+                Print(child, nesting + 1);
         }
     }
 }
