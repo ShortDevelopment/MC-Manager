@@ -1,4 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using System.Linq;
+using Windows.Management.Deployment;
 using Windows.System;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 
@@ -9,9 +11,6 @@ namespace MC_Manager
         public MainPage()
         {
             this.InitializeComponent();
-
-            // MainWindow.Current.SetTitleBar(AppTitleBar);
-
             rootFrame.Navigate(typeof(Pages.HomePage));
         }
 
@@ -60,10 +59,10 @@ namespace MC_Manager
                     }
                     catch { }
                     break;
-                case "open_docs":
+                case "open_install_location":
                     try
                     {
-                        _ = Launcher.LaunchUriAsync(new System.Uri("https://bedrock.dev/"));
+                        OpenInstallLocation();
                     }
                     catch { }
                     break;
@@ -71,6 +70,13 @@ namespace MC_Manager
                     rootFrame.Navigate(typeof(Pages.LinksPage));
                     break;
             }
+        }
+
+        void OpenInstallLocation()
+        {
+            PackageManager pm = new();
+            var package = pm.FindPackagesForUser(string.Empty, "Microsoft.MinecraftUWP_8wekyb3d8bbwe").FirstOrDefault();
+            _ = Launcher.LaunchFolderAsync(package.InstalledLocation);
         }
     }
 }

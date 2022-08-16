@@ -74,12 +74,12 @@
             <controls:NavigationView.FooterMenuItems>
                 <controls:NavigationViewItem Content="com.mojang Folder" Tag="open_com_mojang_folder" SelectsOnInvoked="False">
                     <controls:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE838;" />
+                        <FontIcon Glyph="&#xec25;" />
                     </controls:NavigationViewItem.Icon>
                 </controls:NavigationViewItem>
-                <controls:NavigationViewItem Content="Documentation" Tag="open_docs" SelectsOnInvoked="False">
+                <controls:NavigationViewItem Content="Install Location" Tag="open_install_location" SelectsOnInvoked="False">
                     <controls:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE736;" />
+                        <FontIcon Glyph="&#xE838;" />
                     </controls:NavigationViewItem.Icon>
                 </controls:NavigationViewItem>
                 <controls:NavigationViewItemSeparator />
