@@ -1,0 +1,81 @@
+﻿<Page
+    x:Class="MC_Manager.Pages.NbtEditPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MC_Manager.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:mcNbt="using:ShortDev.Minecraft.Nbt"
+    xmlns:localNbt="using:MC_Manager.Nbt"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <localNbt:Object2StringConverter x:Key="ToStringConverter" />
+        
+        <DataTemplate x:Key="ContainerTemplate" x:DataType="mcNbt:NbtTag">
+            <muxc:TreeViewItem
+                    ItemsSource="{x:Bind Children}" IsExpanded="False">
+                <StackPanel Orientation="Horizontal">
+                    <PathIcon Width="20" Height="15" Data="M10.25 11C9.83579 11 9.5 11.3358 9.5 11.75C9.5 12.1642 9.83579 12.5 10.25 12.5H13.75C14.1642 12.5 14.5 12.1642 14.5 11.75C14.5 11.3358 14.1642 11 13.75 11H10.25ZM3 5.25C3 4.00736 4.00736 3 5.25 3H18.75C19.9926 3 21 4.00736 21 5.25V6.75C21 7.5301 20.603 8.21748 20 8.62111V17.25C20 19.3211 18.3211 21 16.25 21H7.75C5.67893 21 4 19.3211 4 17.25V8.62111C3.39701 8.21748 3 7.5301 3 6.75V5.25ZM5.5 9V17.25C5.5 18.4926 6.50736 19.5 7.75 19.5H16.25C17.4926 19.5 18.5 18.4926 18.5 17.25V9H5.5ZM5.25 4.5C4.83579 4.5 4.5 4.83579 4.5 5.25V6.75C4.5 7.16421 4.83579 7.5 5.25 7.5H18.75C19.1642 7.5 19.5 7.16421 19.5 6.75V5.25C19.5 4.83579 19.1642 4.5 18.75 4.5H5.25Z" />
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Name}" />
+                </StackPanel>
+            </muxc:TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="CollectionTemplate" x:DataType="mcNbt:NbtTag">
+            <muxc:TreeViewItem
+                    ItemsSource="{x:Bind Value}" IsExpanded="False">
+                <StackPanel Orientation="Horizontal">
+                    <PathIcon Width="20" Height="15" Data="M3.25 7C3.94036 7 4.5 6.44036 4.5 5.75C4.5 5.05964 3.94036 4.5 3.25 4.5C2.55964 4.5 2 5.05964 2 5.75C2 6.44036 2.55964 7 3.25 7ZM7 5.75C7 5.33579 7.33579 5 7.75 5H17.25C17.6642 5 18 5.33579 18 5.75C18 6.16421 17.6642 6.5 17.25 6.5H7.75C7.33579 6.5 7 6.16421 7 5.75ZM7.75 10C7.33579 10 7 10.3358 7 10.75C7 11.1642 7.33579 11.5 7.75 11.5H17.25C17.6642 11.5 18 11.1642 18 10.75C18 10.3358 17.6642 10 17.25 10H7.75ZM7.75 15C7.33579 15 7 15.3358 7 15.75C7 16.1642 7.33579 16.5 7.75 16.5H17.25C17.6642 16.5 18 16.1642 18 15.75C18 15.3358 17.6642 15 17.25 15H7.75ZM4.5 10.75C4.5 11.4404 3.94036 12 3.25 12C2.55964 12 2 11.4404 2 10.75C2 10.0596 2.55964 9.5 3.25 9.5C3.94036 9.5 4.5 10.0596 4.5 10.75ZM3.25 17C3.94036 17 4.5 16.4404 4.5 15.75C4.5 15.0596 3.94036 14.5 3.25 14.5C2.55964 14.5 2 15.0596 2 15.75C2 16.4404 2.55964 17 3.25 17Z" />
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Name}" />
+                </StackPanel>
+            </muxc:TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ItemTemplate" x:DataType="x:Object">
+            <muxc:TreeViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <PathIcon Width="20" Height="15" Data="M10.9869 2.88953C11.0639 2.48254 10.7964 2.09019 10.3894 2.0132C9.98238 1.93622 9.59003 2.20374 9.51305 2.61074L8.49396 7.99815L3.74965 8.00037C3.33544 8.00056 2.99981 8.3365 3 8.75072C3.00019 9.16493 3.33614 9.50056 3.75035 9.50037L8.2102 9.49828L7.26445 14.498L2.74965 14.5001C2.33544 14.5003 1.99981 14.8363 2 15.2505C2.00019 15.6647 2.33614 16.0003 2.75035 16.0001L6.98068 15.9981L6.01302 21.1137C5.93603 21.5207 6.20356 21.9131 6.61055 21.99C7.01755 22.067 7.4099 21.7995 7.48688 21.3925L8.50742 15.9974L13.9814 15.9949L13.0131 21.1137C12.9361 21.5207 13.2036 21.9131 13.6106 21.99C14.0176 22.067 14.41 21.7995 14.4869 21.3925L15.5081 15.9942L20.2503 15.9919C20.6646 15.9917 21.0002 15.6558 21 15.2416C20.9998 14.8274 20.6639 14.4918 20.2496 14.4919L15.7919 14.494L16.7376 9.4943L21.2503 9.49219C21.6646 9.49199 22.0002 9.15605 22 8.74184C21.9998 8.32762 21.6639 7.99199 21.2496 7.99219L17.0214 7.99416L17.987 2.88953C18.064 2.48254 17.7964 2.09019 17.3894 2.0132C16.9824 1.93622 16.5901 2.20374 16.5131 2.61074L15.4946 7.99488L10.0207 7.99744L10.9869 2.88953ZM9.73693 9.49757L15.2109 9.49501L14.2651 14.4947L8.79118 14.4973L9.73693 9.49757Z" />
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Converter={StaticResource ToStringConverter}}" />
+                </StackPanel>
+            </muxc:TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="NumberTemplate" x:DataType="mcNbt:NbtTag">
+            <muxc:TreeViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <PathIcon Width="20" Height="15" Data="M10.9869 2.88953C11.0639 2.48254 10.7964 2.09019 10.3894 2.0132C9.98238 1.93622 9.59003 2.20374 9.51305 2.61074L8.49396 7.99815L3.74965 8.00037C3.33544 8.00056 2.99981 8.3365 3 8.75072C3.00019 9.16493 3.33614 9.50056 3.75035 9.50037L8.2102 9.49828L7.26445 14.498L2.74965 14.5001C2.33544 14.5003 1.99981 14.8363 2 15.2505C2.00019 15.6647 2.33614 16.0003 2.75035 16.0001L6.98068 15.9981L6.01302 21.1137C5.93603 21.5207 6.20356 21.9131 6.61055 21.99C7.01755 22.067 7.4099 21.7995 7.48688 21.3925L8.50742 15.9974L13.9814 15.9949L13.0131 21.1137C12.9361 21.5207 13.2036 21.9131 13.6106 21.99C14.0176 22.067 14.41 21.7995 14.4869 21.3925L15.5081 15.9942L20.2503 15.9919C20.6646 15.9917 21.0002 15.6558 21 15.2416C20.9998 14.8274 20.6639 14.4918 20.2496 14.4919L15.7919 14.494L16.7376 9.4943L21.2503 9.49219C21.6646 9.49199 22.0002 9.15605 22 8.74184C21.9998 8.32762 21.6639 7.99199 21.2496 7.99219L17.0214 7.99416L17.987 2.88953C18.064 2.48254 17.7964 2.09019 17.3894 2.0132C16.9824 1.93622 16.5901 2.20374 16.5131 2.61074L15.4946 7.99488L10.0207 7.99744L10.9869 2.88953ZM9.73693 9.49757L15.2109 9.49501L14.2651 14.4947L8.79118 14.4973L9.73693 9.49757Z" />
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Name}" FontWeight="Bold" />
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Value, Converter={StaticResource ToStringConverter}}" />
+                </StackPanel>
+            </muxc:TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="StringTemplate" x:DataType="mcNbt:NbtTag">
+            <muxc:TreeViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <PathIcon Width="20" Height="15" Data="M6 5C6 4.44772 6.44772 4 7 4H25C25.5523 4 26 4.44772 26 5V9C26 9.55228 25.5523 10 25 10C24.4477 10 24 9.55228 24 9V6H17V26H19C19.5523 26 20 26.4477 20 27C20 27.5523 19.5523 28 19 28H13C12.4477 28 12 27.5523 12 27C12 26.4477 12.4477 26 13 26H15V6H8V9C8 9.55228 7.55228 10 7 10C6.44772 10 6 9.55228 6 9V5Z" />
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Name}" FontWeight="Bold" />
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock>"<Run Text="{x:Bind Value, Converter={StaticResource ToStringConverter}}" />"</TextBlock>
+                </StackPanel>
+            </muxc:TreeViewItem>
+        </DataTemplate>
+
+        <localNbt:NbtItemTemplateSelector x:Key="ExplorerItemTemplateSelector"
+                                            CollectionTemplate="{StaticResource CollectionTemplate}"
+                                            ContainerTemplate="{StaticResource ContainerTemplate}"
+                                              NumberTemplate="{StaticResource NumberTemplate}"
+                                              StringTemplate="{StaticResource StringTemplate}"
+                                              ItemTemplate="{StaticResource ItemTemplate}" />
+    </Page.Resources>
+
+    <muxc:TreeView x:Name="NbtTreeView" ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}" />
+</Page>

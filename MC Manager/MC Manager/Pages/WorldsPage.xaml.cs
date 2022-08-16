@@ -60,9 +60,9 @@ namespace MC_Manager.Pages
                 return;
 
             Worlds.WorldInfo[] items = worldsListView.ItemsSource as Worlds.WorldInfo[];
-            string folderPath = items[worldsListView.SelectedIndex].Folder.Path;
-            var tag = NbtConvert.Convert(Path.Combine(folderPath, "level.dat"), useGzip: false);
-            Debug.Print($"Type: {tag.Type}, Name: {tag.Name}");
+            var folder = items[worldsListView.SelectedIndex].Folder;
+            NbtEditWindow window = new(folder);
+            window.Activate();
         }
     }
 }

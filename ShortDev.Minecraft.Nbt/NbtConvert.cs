@@ -22,12 +22,13 @@ namespace ShortDev.Minecraft.Nbt
         {
             using BinaryReader reader = new(stream);
             NbtTag tag = new();
+            tag.Type = NbtTagType.Compound;
             while (ParseInternal(ref tag, reader, rootTag: true)) { }
             return tag;
         }
 
         // https://github.dev/natiiix/NbtEditor
-        public static bool ParseInternal(ref NbtTag hostTag, BinaryReader reader, bool rootTag = false)
+        static bool ParseInternal(ref NbtTag hostTag, BinaryReader reader, bool rootTag = false)
         {
             if (reader.BaseStream.Position >= reader.BaseStream.Length - 1)
                 return false;
@@ -101,9 +102,13 @@ namespace ShortDev.Minecraft.Nbt
                     {
                         NbtTagType listType = (NbtTagType)reader.ReadByte();
                         int length = reader.ReadInt32();
-                        object?[] buffer = new object?[length];
+                        NbtTag[] buffer = new NbtTag[length];
                         for (int i = 0; i < length; i++)
-                            buffer[i] = ParseTagValue(listType, reader);
+                            buffer[i] = new()
+                            {
+                                Type = listType,
+                                Value = ParseTagValue(listType, reader)
+                            };
                         return buffer;
                     }
             }
