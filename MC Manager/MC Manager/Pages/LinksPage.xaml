@@ -19,7 +19,8 @@
 
             <TextBlock Text="Addons" Style="{StaticResource TitleTextBlockStyle}" Margin="0,10,0,0" />
             <GridView Padding="10">
-                <localcontrols:LinkButtonControl Title="Documentation" Description="Very good docs on addons and game mechanics" NavigationUri="https://bedrock.dev/" />                
+                <localcontrols:LinkButtonControl Title="Documentation" Description="Very good docs on addons and game mechanics" NavigationUri="https://bedrock.dev/" />
+                <localcontrols:LinkButtonControl Title="Ms Documentation" Description="Official Documentation" NavigationUri="https://docs.microsoft.com/en-us/minecraft/creator/" />
                 <localcontrols:LinkButtonControl Title="Bridge" Description="A powerful IDE for Minecraft Add-Ons" NavigationUri="https://editor.bridge-core.app/" />
                 <localcontrols:LinkButtonControl Title="Blockbench" Description="A boxy 3D model editor" NavigationUri="https://web.blockbench.net/" />
             </GridView>
