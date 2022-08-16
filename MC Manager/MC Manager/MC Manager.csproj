@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
 		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>MC_Manager</RootNamespace>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
@@ -16,6 +16,7 @@
 	<ItemGroup>
 		<None Remove="Controls\LinkButtonControl.xaml" />
 		<None Remove="Controls\MissingPermissionInfoControl.xaml" />
+		<None Remove="Dialogs\SelectWebSocketEventDialog.xaml" />
 		<None Remove="MainPage.xaml" />
 		<None Remove="Pages\HomePage.xaml" />
 		<None Remove="Pages\LinksPage.xaml" />
@@ -31,8 +32,8 @@
 		<PackageReference Include="CommunityToolkit.WinUI" Version="7.1.2" />
 		<PackageReference Include="CommunityToolkit.WinUI.UI" Version="7.1.2" />
 		<PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.2" />
-		<PackageReference Include="WinUI.Interop" Version="0.2.2" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.4" />
+		<PackageReference Include="WinUI.Interop" Version="0.2.6" />
 		<Manifest Include="$(ApplicationManifest)" />
 	</ItemGroup>
 
@@ -110,5 +111,11 @@
 		<Page Update="Pages\WorldsPage.xaml">
 			<SubType>Designer</SubType>
 		</Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Dialogs\SelectWebSocketEventDialog.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 </Project>
