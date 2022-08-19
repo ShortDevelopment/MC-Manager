@@ -12,7 +12,7 @@ namespace ShortDev.Minecraft.Nbt
             using MemoryStream outStream = new();
 
             if (useGzip)
-                using (var decompressedStream = new GZipStream(fileStream, CompressionMode.Decompress))
+                using (GZipStream decompressedStream = new(fileStream, CompressionMode.Decompress))
                     return Convert(decompressedStream);
             else
                 return Convert(fileStream);
@@ -21,19 +21,22 @@ namespace ShortDev.Minecraft.Nbt
         public static NbtTag? Convert(Stream stream)
         {
             using BinaryReader reader = new(stream);
-            NbtTag tag = new();
-            tag.Type = NbtTagType.Compound;
-            while (ParseInternal(ref tag, reader, rootTag: true)) { }
+
+            // Offset
+            reader.ReadBytes(8);
+
+            ParseInternal(null, reader, out var tag);
             return tag;
         }
 
         // https://github.dev/natiiix/NbtEditor
-        static bool ParseInternal(ref NbtTag hostTag, BinaryReader reader, bool rootTag = false)
+        static bool ParseInternal(NbtTag? parentTag, BinaryReader reader, out NbtTag tag)
         {
+            tag = new();
+
             if (reader.BaseStream.Position >= reader.BaseStream.Length - 1)
                 return false;
 
-            NbtTag tag = new();
             tag.Type = (NbtTagType)reader.ReadByte();
             if (tag.Type == NbtTagType.End)
                 return false;
@@ -46,11 +49,11 @@ namespace ShortDev.Minecraft.Nbt
             tag.Name = System.Text.Encoding.UTF8.GetString(nameData);
 
             if (tag.Type == NbtTagType.Compound)
-                while (ParseInternal(ref tag, reader)) { }
+                while (ParseInternal(tag, reader, out _)) { }
             else
                 tag.Value = ParseTagValue(tag.Type, reader);
 
-            hostTag.Children.Add(tag);
+            parentTag?.Children.Add(tag);
             return true;
         }
 
