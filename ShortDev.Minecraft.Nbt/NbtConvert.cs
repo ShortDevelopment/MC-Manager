@@ -36,101 +36,64 @@ namespace ShortDev.Minecraft.Nbt
                 int bodyLength = reader.ReadInt32();
             }
 
-            NbtTag tag = new();
-            while (ParseInternal(tag, reader, out _)) { }
+            TryParseInternal(null, reader, out var tag);
             return tag;
         }
 
-        // https://github.dev/natiiix/NbtEditor
-        static bool ParseInternal(NbtTag? parentTag, BinaryReader reader, out NbtTag tag)
+        internal static bool TryParseInternal(NbtTag? parentTag, BinaryReader reader, out NbtTag? tag)
         {
-            tag = new();
+            tag = null;
 
             if (reader.BaseStream.Position >= reader.BaseStream.Length - 1)
                 return false;
 
-            tag.Type = (NbtTagType)reader.ReadByte();
-            if (tag.Type == NbtTagType.End)
+            var type = (NbtTagType)reader.ReadByte();
+            if (type == NbtTagType.End)
                 return false;
-
-            //if (reader.BaseStream.Position >= reader.BaseStream.Length - 10)
-            //    return false;
 
             ushort nameLength = reader.ReadUInt16();
             byte[] nameData = reader.ReadBytes(nameLength);
-            tag.Name = System.Text.Encoding.UTF8.GetString(nameData);
+            var name = System.Text.Encoding.UTF8.GetString(nameData);
 
-            if (tag.Type == NbtTagType.Compound)
-                while (ParseInternal(tag, reader, out _)) { }
-            else
-                tag.Value = ParseTagValue(tag.Type, reader);
+            tag = ParseTag(type, reader);
+            if (tag != null)
+                tag.Name = name;
 
-            parentTag?.Children.Add(tag);
             return true;
         }
 
-        static object? ParseTagValue(NbtTagType type, BinaryReader reader)
+        internal static NbtTag? ParseTag(NbtTagType type, BinaryReader reader)
         {
             switch (type)
             {
                 case NbtTagType.Byte:
-                    return reader.ReadByte();
                 case NbtTagType.Short:
-                    return reader.ReadInt16();
                 case NbtTagType.Int:
-                    return reader.ReadInt32();
                 case NbtTagType.Long:
-                    return reader.ReadInt64();
                 case NbtTagType.Float:
-                    return reader.ReadSingle();
-
                 case NbtTagType.Double:
-                    return reader.ReadDouble();
                 case NbtTagType.String:
                     {
-                        ushort length = reader.ReadUInt16();
-                        return System.Text.Encoding.UTF8.GetString(reader.ReadBytes(length));
+                        Tags.NbtValue tag = new();
+                        tag.Type = type;
+                        tag.Populate(reader);
+                        return tag;
                     }
                 case NbtTagType.ByteArray:
-                    {
-                        int length = reader.ReadInt32();
-                        return reader.ReadBytes(length);
-
-                    }
                 case NbtTagType.IntArray:
-                    {
-                        int length = reader.ReadInt32();
-                        int[] buffer = new int[length];
-                        for (int i = 0; i < length; i++)
-                            buffer[i] = reader.ReadInt32();
-                        return buffer;
-                    }
                 case NbtTagType.LongArray:
-                    {
-                        int length = reader.ReadInt32();
-                        long[] buffer = new long[length];
-                        for (int i = 0; i < length; i++)
-                            buffer[i] = reader.ReadInt64();
-                        return buffer;
-                    }
                 case NbtTagType.List:
                     {
-                        NbtTagType listType = (NbtTagType)reader.ReadByte();
-                        int length = reader.ReadInt32();
-                        NbtTag[] buffer = new NbtTag[length];
-                        for (int i = 0; i < length; i++)
-                            buffer[i] = new()
-                            {
-                                Type = listType,
-                                Value = ParseTagValue(listType, reader)
-                            };
-                        return buffer;
+                        Tags.NbtCollection tag = new();
+                        tag.Type = type;
+                        tag.Populate(reader);
+                        return tag;
                     }
                 case NbtTagType.Compound:
                     {
-                        NbtTag tag = new();
-                        tag.Type = NbtTagType.Compound;
-                        while (ParseInternal(tag, reader, out _)) { }
+                        Tags.NbtCompound tag = new();
+                        tag.Type = type;
+                        tag.Populate(reader);
                         return tag;
                     }
                 case NbtTagType.End:

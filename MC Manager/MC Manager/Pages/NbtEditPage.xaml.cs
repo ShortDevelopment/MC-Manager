@@ -2,6 +2,7 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
 using ShortDev.Minecraft.Nbt;
+using ShortDev.Minecraft.Nbt.Tags;
 using System;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -18,8 +19,8 @@ namespace MC_Manager.Pages
         public async Task LoadDataAsync(StorageFolder worldLocation)
         {
             var file = await worldLocation.GetFileAsync("level.dat");
-            var tag = NbtConvert.Convert(file.Path, useGzip: false);
-            NbtTreeView.ItemsSource = tag.Children;
+            var tag = NbtConvert.Convert(file.Path, NbtConvertOptions.BedrockLevel);
+            NbtTreeView.ItemsSource = ((NbtCompound)tag).Children;
         }
     }
 }
