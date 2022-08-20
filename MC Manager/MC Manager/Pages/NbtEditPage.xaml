@@ -12,7 +12,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <localNbt:Object2StringConverter x:Key="ToStringConverter" />
-        
+
         <DataTemplate x:Key="ContainerTemplate" x:DataType="mcNbt:NbtCompound">
             <muxc:TreeViewItem
                     ItemsSource="{x:Bind Children}" IsExpanded="False">
@@ -77,5 +77,14 @@
                                               ItemTemplate="{StaticResource ItemTemplate}" />
     </Page.Resources>
 
-    <muxc:TreeView x:Name="NbtTreeView" ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <muxc:InfoBar IsOpen="True" IsClosable="False" Margin="10"
+                      Severity="Informational" Title="Info"
+            Message="Nbt is currently readonly!" />
+        <muxc:TreeView Grid.Row="1" x:Name="NbtTreeView" ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}" />
+    </Grid>    
 </Page>
