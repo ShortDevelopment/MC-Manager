@@ -6,26 +6,38 @@ namespace ShortDev.Minecraft.Nbt
 {
     public static class NbtConvert
     {
-        public static NbtTag? Convert(string filePath, bool useGzip = true)
+        public static NbtTag? Convert(string filePath, NbtConvertOptions options)
         {
             using FileStream fileStream = File.OpenRead(filePath);
-            using MemoryStream outStream = new();
 
-            if (useGzip)
-                using (GZipStream decompressedStream = new(fileStream, CompressionMode.Decompress))
-                    return Convert(decompressedStream);
-            else
-                return Convert(fileStream);
+            switch (options.Compression)
+            {
+                case NbtCompression.Gzip:
+                    using (GZipStream decompressedStream = new(fileStream, CompressionMode.Decompress))
+                    using (MemoryStream outStream = new())
+                    {
+                        decompressedStream.CopyTo(outStream);
+                        outStream.Position = 0;
+                        return Convert(outStream, options);
+                    }
+                case NbtCompression.None:
+                    return Convert(fileStream, options);
+            }
+            throw new NotImplementedException();
         }
 
-        public static NbtTag? Convert(Stream stream)
+        public static NbtTag? Convert(Stream stream, NbtConvertOptions options)
         {
-            using BinaryReader reader = new(stream);
+            using BinaryReader reader = options.UseBigEndian ? new BigEndianBinaryReader(stream) : new BinaryReader(stream);
 
-            // Offset
-            reader.ReadBytes(8);
+            if (options.UseLevelHeader)
+            {
+                options.FileVersion = reader.ReadInt32();
+                int bodyLength = reader.ReadInt32();
+            }
 
-            ParseInternal(null, reader, out var tag);
+            NbtTag tag = new();
+            while (ParseInternal(tag, reader, out _)) { }
             return tag;
         }
 
@@ -41,8 +53,8 @@ namespace ShortDev.Minecraft.Nbt
             if (tag.Type == NbtTagType.End)
                 return false;
 
-            if (reader.BaseStream.Position >= reader.BaseStream.Length - 10)
-                return false;
+            //if (reader.BaseStream.Position >= reader.BaseStream.Length - 10)
+            //    return false;
 
             ushort nameLength = reader.ReadUInt16();
             byte[] nameData = reader.ReadBytes(nameLength);
@@ -114,9 +126,55 @@ namespace ShortDev.Minecraft.Nbt
                             };
                         return buffer;
                     }
+                case NbtTagType.Compound:
+                    {
+                        NbtTag tag = new();
+                        tag.Type = NbtTagType.Compound;
+                        while (ParseInternal(tag, reader, out _)) { }
+                        return tag;
+                    }
+                case NbtTagType.End:
+                    return null;
             }
-            return null;
+            throw new NotImplementedException();
         }
+    }
+
+    public sealed class NbtConvertOptions
+    {
+        public NbtCompression Compression { get; init; }
+        public bool UseBigEndian { get; init; }
+        public bool UseLevelHeader { get; init; }
+
+        public int FileVersion { get; set; }
+
+        public static NbtConvertOptions BedrockLevel
+            => new()
+            {
+                Compression = NbtCompression.None,
+                UseBigEndian = false,
+                UseLevelHeader = true
+            };
+
+        public static NbtConvertOptions BedrockNbtStructure
+            => new()
+            {
+                Compression = NbtCompression.Gzip,
+                UseBigEndian = true
+            };
+
+        public static NbtConvertOptions McStruct
+            => new()
+            {
+                Compression = NbtCompression.None,
+                UseBigEndian = false
+            };
+    }
+
+    public enum NbtCompression
+    {
+        None,
+        Gzip
     }
 
     class BigEndianBinaryReader : BinaryReader

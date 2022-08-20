@@ -1,6 +1,8 @@
 ﻿using ShortDev.Minecraft.Nbt;
 using System;
 using System.IO;
+using System.IO.Compression;
+using System.IO.Pipes;
 
 namespace ConsoleApp1
 {
@@ -8,25 +10,19 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            string folderPath = @"C:\Users\lukas\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\9BTBYLt5AAA=";
-            var tag = NbtConvert.Convert(Path.Combine(folderPath, "level.dat"), useGzip: false);
-            //do
-            //{
-            //    Console.WriteLine($"Type: {tag.Type}, Name: {tag.Name}");
-            //    tag = tag.Child;
-            //} while (tag != null);
+            //var tag = NbtConvert.Convert(
+            //    @"C:\Users\lukas\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\9BTBYLt5AAA=\level.dat",
+            //    NbtConvertOptions.BedrockLevel
+            //);
 
-            Print(tag, 0);
+            var tag2 = NbtConvert.Convert(
+                @"C:\Program Files\WindowsApps\Microsoft.MinecraftUWP_1.19.2002.0_x64__8wekyb3d8bbwe\data\structures\village\taiga\taiga_decoration_1.nbt",
+                NbtConvertOptions.BedrockNbtStructure
+            );
+
+            Console.WriteLine(tag2.ToString());
 
             Console.ReadLine();
-        }
-
-        static void Print(NbtTag tag, int nesting)
-        {
-            Console.WriteLine($"{"".PadLeft(nesting)}{tag.Name ?? "null"}: {tag.Value ?? "null"}");
-
-            foreach (var child in tag.Children)
-                Print(child, nesting + 1);
         }
     }
 }
