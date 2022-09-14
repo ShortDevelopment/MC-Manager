@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -11,7 +10,7 @@ namespace ShortDev.Minecraft.Nbt.Tags
     {
         public object? Value { get; set; }
 
-        internal override void Populate(BinaryReader reader)
+        internal override void PopulateValue(BinaryReader reader)
         {
             switch (Type)
             {
@@ -35,8 +34,42 @@ namespace ShortDev.Minecraft.Nbt.Tags
                     break;
                 case NbtTagType.String:
                     {
-                        ushort length = reader.ReadUInt16();
-                        Value = Encoding.UTF8.GetString(reader.ReadBytes(length));
+                        Value = NbtConvert.ReadString(reader);
+                        break;
+                    }
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        internal override void WriteValue(BinaryWriter writer)
+        {
+            if (Type != NbtTagType.String && Value == null)
+                throw new InvalidDataException();
+
+            switch (Type)
+            {
+                case NbtTagType.Byte:
+                    writer.Write((byte)Value);
+                    break;
+                case NbtTagType.Short:
+                    writer.Write((short)Value);
+                    break;
+                case NbtTagType.Int:
+                    writer.Write((int)Value);
+                    break;
+                case NbtTagType.Long:
+                    writer.Write((long)Value);
+                    break;
+                case NbtTagType.Float:
+                    writer.Write((float)Value);
+                    break;
+                case NbtTagType.Double:
+                    writer.Write((double)Value);
+                    break;
+                case NbtTagType.String:
+                    {
+                        NbtConvert.WriteString(writer, (string)Value);
                         break;
                     }
                 default:

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Text;
 
 namespace ShortDev.Minecraft.Nbt
 {
     public static class NbtConvert
     {
-        public static NbtTag? Convert(string filePath, NbtConvertOptions options)
+        public static NbtTag? Deserialize(string filePath, ref NbtConvertOptions options)
         {
             using FileStream fileStream = File.OpenRead(filePath);
 
@@ -18,15 +19,15 @@ namespace ShortDev.Minecraft.Nbt
                     {
                         decompressedStream.CopyTo(outStream);
                         outStream.Position = 0;
-                        return Convert(outStream, options);
+                        return Deserialize(outStream, ref options);
                     }
                 case NbtCompression.None:
-                    return Convert(fileStream, options);
+                    return Deserialize(fileStream, ref options);
             }
             throw new NotImplementedException();
         }
 
-        public static NbtTag? Convert(Stream stream, NbtConvertOptions options)
+        public static NbtTag? Deserialize(Stream stream, ref NbtConvertOptions options)
         {
             using BinaryReader reader = options.UseBigEndian ? new BigEndianBinaryReader(stream) : new BinaryReader(stream);
 
@@ -36,33 +37,23 @@ namespace ShortDev.Minecraft.Nbt
                 int bodyLength = reader.ReadInt32();
             }
 
-            TryParseInternal(null, reader, out var tag);
+            return ParseTag(reader);
+        }
+
+        internal static NbtTag? ParseTag(BinaryReader reader)
+        {
+            var type = (NbtTagType)reader.ReadByte();
+            if (type == NbtTagType.End)
+                return null;
+
+            string? name = ReadString(reader);
+            var tag = ParseTagValue(reader, type);
+            if (tag != null)
+                tag.Name = name;
             return tag;
         }
 
-        internal static bool TryParseInternal(NbtTag? parentTag, BinaryReader reader, out NbtTag? tag)
-        {
-            tag = null;
-
-            if (reader.BaseStream.Position >= reader.BaseStream.Length - 1)
-                return false;
-
-            var type = (NbtTagType)reader.ReadByte();
-            if (type == NbtTagType.End)
-                return false;
-
-            ushort nameLength = reader.ReadUInt16();
-            byte[] nameData = reader.ReadBytes(nameLength);
-            var name = System.Text.Encoding.UTF8.GetString(nameData);
-
-            tag = ParseTag(type, reader);
-            if (tag != null)
-                tag.Name = name;
-
-            return true;
-        }
-
-        internal static NbtTag? ParseTag(NbtTagType type, BinaryReader reader)
+        internal static NbtTag? ParseTagValue(BinaryReader reader, NbtTagType type)
         {
             switch (type)
             {
@@ -76,7 +67,7 @@ namespace ShortDev.Minecraft.Nbt
                     {
                         Tags.NbtValue tag = new();
                         tag.Type = type;
-                        tag.Populate(reader);
+                        tag.PopulateValue(reader);
                         return tag;
                     }
                 case NbtTagType.ByteArray:
@@ -86,20 +77,70 @@ namespace ShortDev.Minecraft.Nbt
                     {
                         Tags.NbtCollection tag = new();
                         tag.Type = type;
-                        tag.Populate(reader);
+                        tag.PopulateValue(reader);
                         return tag;
                     }
                 case NbtTagType.Compound:
                     {
                         Tags.NbtCompound tag = new();
                         tag.Type = type;
-                        tag.Populate(reader);
+                        tag.PopulateValue(reader);
                         return tag;
                     }
                 case NbtTagType.End:
                     return null;
+                default:
+                    throw new NotImplementedException();
             }
-            throw new NotImplementedException();
+        }
+
+        public static void Serialize(string fileName, NbtTag tag, NbtConvertOptions options)
+        {
+            using (var fileStream = File.Create(fileName))
+                Serialize(fileStream, tag, options);
+        }
+
+        public static void Serialize(Stream stream, NbtTag tag, NbtConvertOptions options)
+        {
+            if (options.Compression != NbtCompression.None || options.UseBigEndian)
+                throw new ArgumentException();
+
+            using (BinaryWriter writer = new(stream))
+            {
+                if (options.UseLevelHeader)
+                {
+                    writer.Write(options.FileVersion);
+                    writer.Write((int)0); // ToDo: Length
+                }
+
+                WriteTag(writer, tag);
+            }
+        }
+
+        internal static void WriteTag(BinaryWriter writer, NbtTag tag)
+        {
+            writer.Write((byte)tag.Type);
+            WriteString(writer, tag.Name);
+            tag.WriteValue(writer);
+        }
+
+        internal static string? ReadString(BinaryReader reader)
+        {
+            ushort length = reader.ReadUInt16();
+            if (length == 0)
+                return null;
+            return Encoding.UTF8.GetString(reader.ReadBytes(length));
+        }
+
+        internal static void WriteString(BinaryWriter writer, string? value)
+        {
+            if (value == null)
+                writer.Write((short)0);
+            else
+            {
+                writer.Write((short)value.Length);
+                writer.Write(Encoding.UTF8.GetBytes(value));
+            }
         }
     }
 

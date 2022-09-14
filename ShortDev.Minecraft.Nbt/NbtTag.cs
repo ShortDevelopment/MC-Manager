@@ -10,7 +10,14 @@ namespace ShortDev.Minecraft.Nbt
 
         public string? Name { get; set; }
 
-        internal abstract void Populate(BinaryReader reader);
+        internal abstract void PopulateValue(BinaryReader reader);
+        internal abstract void WriteValue(BinaryWriter writer);
+
+        public virtual T? GetItem<T>(int index) where T : NbtTag
+            => null;
+
+        public virtual T? GetItem<T>(string name) where T : NbtTag
+            => null;
 
         public override string ToString()
             => JsonSerializer.Serialize(this);

@@ -1,21 +1,23 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace ShortDev.Minecraft.Nbt.Tags
 {
     [JsonConverter(typeof(NbtJsonConverter))]
     public sealed class NbtCollection : NbtTag
     {
-        public IEnumerable Items { get; set; }
+        public Array? Items { get; set; }
 
-        internal override void Populate(BinaryReader reader)
+        public IEnumerable<T> Enumerate<T>()
+            => (IEnumerable<T>)Items;
+
+        public override T GetItem<T>(int index)
+             => (T)Items.GetValue(index);
+
+        internal override void PopulateValue(BinaryReader reader)
         {
             switch (Type)
             {
@@ -49,8 +51,51 @@ namespace ShortDev.Minecraft.Nbt.Tags
                         int length = reader.ReadInt32();
                         NbtTag?[] buffer = new NbtTag[length];
                         for (int i = 0; i < length; i++)
-                            buffer[i] = NbtConvert.ParseTag(listType, reader);
+                            buffer[i] = NbtConvert.ParseTagValue(reader, listType);
                         Items = buffer;
+                        break;
+                    }
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        internal override void WriteValue(BinaryWriter writer)
+        {
+            if (Items == null)
+                throw new InvalidDataException();
+
+            switch (Type)
+            {
+                case NbtTagType.ByteArray:
+                    {
+                        writer.Write((int)Items.Length);
+                        writer.Write((byte[])Items);
+                        break;
+                    }
+                case NbtTagType.IntArray:
+                    {
+                        writer.Write((int)Items.Length);
+                        foreach (var item in (int[])Items)
+                            writer.Write(item);
+                        break;
+                    }
+                case NbtTagType.LongArray:
+                    {
+                        writer.Write((int)Items.Length);
+                        foreach (var item in (long[])Items)
+                            writer.Write(item);
+                        break;
+                    }
+                case NbtTagType.List:
+                    {
+                        NbtTagType listType = NbtTagType.End;
+                        if (Items.Length > 0)
+                            listType = ((NbtTag)Items.GetValue(0)!).Type;
+                        writer.Write((byte)listType);
+                        writer.Write((int)Items.Length);
+                        foreach (var tag in (NbtTag[])Items)
+                            tag.WriteValue(writer);
                         break;
                     }
                 default:
