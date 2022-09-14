@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <link href="main.css" rel="stylesheet" />
+
+    <script type="importmap">
+        {
+          "imports": {
+            "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+          }
+        }
+    </script>
+
+    <script src="main.js" type="module"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="column center">
+            <div class="debug_cell">@ShortDevelopment - Debugscreen</div>
+            <div v-if="!data">
+                <div class="debug_cell">No data</div>
+            </div>
+        </div>
+        <div class="overlay_children" v-if="data">
+            <div class="column left">
+                <div v-if="!!player">
+                    <div class="debug_cell">Name: {{ player.name }}</div>
+                    <div class="debug_cell">XYZ: {{ formatLocation(player.location) }}</div>
+                    <div class="debug_cell">Rotation: {{ formatRotation(player.rotation) }}</div>
+                    <div class="debug_cell">Dimension: {{ player.dimension }}</div>
+                    <div class="debug_cell">Biome: {{ player.biome }}</div>
+                    <div class="debug_cell">Light: {{ player.lightLevel }}</div>
+                </div>
+                <div v-else>
+                    <div class="debug_cell">No player info</div>
+                </div>
+            </div>
+            <div class="column right">
+                <div v-if="!!game">
+                    <div class="debug_cell">Game: {{ game.version }}</div>
+                </div>
+                <div v-else>
+                    <div class="debug_cell">No game info</div>
+                </div>
+
+                <div v-if="!!player">
+                    <div v-if="!!player.targetBlock">
+                        <div class="debug_cell">Target Block: {{ formatLocation(player.targetBlock.location) }}</div>
+                    </div>
+                    <div v-if="!!player.tagetFluid">
+                        <div class="debug_cell">Target Fluid: {{ formatLocation(player.tagetFluid.location) }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

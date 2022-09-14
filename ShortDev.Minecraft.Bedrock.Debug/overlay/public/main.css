@@ -1,0 +1,45 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Rubik+Burned&family=Space+Grotesk&display=swap');
+
+body {
+    margin: 0px;
+    padding: 10px;
+    box-sizing: border-box;
+    height: 100vh;
+}
+
+#app {
+    display: grid;
+    font-family: 'Space Grotesk', sans-serif;
+    height: 100%;
+}
+
+.overlay_children {
+    display: grid;
+}
+
+    .overlay_children > * {
+        grid-area: 1/1;
+    }
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+    .column.left {
+        align-items: flex-start;
+    }
+
+    .column.center {
+        align-items: center;
+    }
+
+    .column.right {
+        align-items: flex-end;
+    }
+
+.debug_cell {
+    color: #fff;
+    background: #00000070;
+    padding: 5px 10px;
+}

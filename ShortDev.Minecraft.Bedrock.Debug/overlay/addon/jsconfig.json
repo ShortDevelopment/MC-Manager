@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "lib": [ "ES2022" ]
+  }
+}

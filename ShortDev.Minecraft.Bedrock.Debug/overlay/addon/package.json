@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/mojang-minecraft": "^0.1.7",
+    "@types/mojang-net": "^0.1.1"
+  }
+}
