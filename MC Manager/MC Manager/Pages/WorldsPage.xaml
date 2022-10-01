@@ -34,7 +34,7 @@
                         <FontIcon Glyph="&#xE8E5;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
-                <AppBarButton Label="Edit Nbt" IsEnabled="False">
+                <AppBarButton Label="Edit Nbt" x:Name="EditNbtButton" Click="EditNbtButton_Click">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xe70f;" />
                     </AppBarButton.Icon>

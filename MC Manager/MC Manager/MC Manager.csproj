@@ -18,9 +18,11 @@
 		<None Remove="Controls\MissingPermissionInfoControl.xaml" />
 		<None Remove="Dialogs\SelectWebSocketEventDialog.xaml" />
 		<None Remove="MainPage.xaml" />
+		<None Remove="NbtEditWindow.xaml" />
 		<None Remove="Pages\HomePage.xaml" />
 		<None Remove="Pages\LinksPage.xaml" />
 		<None Remove="Pages\LogPage.xaml" />
+		<None Remove="Pages\NbtEditPage.xaml" />
 		<None Remove="Pages\PortfolioPage.xaml" />
 		<None Remove="Pages\ServerSetupPage.xaml" />
 		<None Remove="Pages\SettingsPage.xaml" />
@@ -39,6 +41,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\MCWebSocket\ShortDev.Minecraft.Bedrock.WebSocket.csproj" />
+		<ProjectReference Include="..\..\ShortDev.Minecraft.Nbt\ShortDev.Minecraft.Nbt.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -72,6 +75,18 @@
 		<Compile Update="Pages\WorldsPage.xaml.cs">
 			<DependentUpon>WorldsPage.xaml</DependentUpon>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Pages\NbtEditPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="NbtEditWindow.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 
 	<ItemGroup>
