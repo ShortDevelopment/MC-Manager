@@ -19,7 +19,8 @@ namespace MC_Manager.Pages
         public async Task LoadDataAsync(StorageFolder worldLocation)
         {
             var file = await worldLocation.GetFileAsync("level.dat");
-            var tag = NbtConvert.Deserialize(file.Path, NbtConvertOptions.BedrockLevel);
+            var options = NbtConvertOptions.BedrockLevel;
+            var tag = NbtConvert.Deserialize(file.Path, ref options);
             NbtTreeView.ItemsSource = ((NbtCompound)tag).Children;
         }
     }
