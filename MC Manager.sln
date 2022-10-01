@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31727.386
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShortDev.Minecraft.Bedrock.WebSocket", "MCWebSocket\ShortDev.Minecraft.Bedrock.WebSocket.csproj", "{73FD78ED-6C52-47D5-8183-8F7D0ADF1977}"
 EndProject
@@ -9,9 +9,9 @@ Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "MC Manager (Package)", "MC 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MC Manager", "MC Manager\MC Manager\MC Manager.csproj", "{8F55944D-8A43-4B57-B2DF-2191322EB89F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShortDev.Minecraft.Nbt", "ShortDev.Minecraft.Nbt\ShortDev.Minecraft.Nbt.csproj", "{25C0D2B5-5AEB-46F3-98DE-D97CD5B877D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShortDev.Minecraft.Nbt", "ShortDev.Minecraft.Nbt\ShortDev.Minecraft.Nbt.csproj", "{25C0D2B5-5AEB-46F3-98DE-D97CD5B877D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{2D65F88A-B3C3-4535-B8B4-4C93A20B6D60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{2D65F88A-B3C3-4535-B8B4-4C93A20B6D60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
