@@ -25,23 +25,38 @@
                 </AppBarButton>
             </CommandBar>
             <ScrollViewer>
-                <StackPanel HorizontalAlignment="Center">
+                <StackPanel HorizontalAlignment="Stretch" Margin="10">
                     <Grid BorderBrush="#E8E8E8" BorderThickness="1" CornerRadius="3" Margin="5" Padding="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <FontIcon Glyph="&#xe789;" Margin="10" VerticalAlignment="Top" />
+                        <FontIcon Glyph="&#xed0e;" Margin="10" VerticalAlignment="Top" />
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="UI Bugs - Porting to WinUI 3 Desktop" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,10" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Row="0" Text="NBT (readonly)" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,10" HorizontalAlignment="Left" />
                             <TextBlock Grid.Row="1" TextWrapping="Wrap">
-                                As the restrictions of the UWP sandbox got bigger I chose to migrate to WinUI 3 Desktop.
-                                This allows me to have a standard win32 application but with the nice WinUI design we all know and love from UWP.
-                                As WinUI 3 still has some problems / bugs / missing features, I started tracking all UI related bugs <Hyperlink NavigateUri="https://github.com/ShortDevelopment/MC-Manager/issues/2">here</Hyperlink>.
+                                You can now read "level.dat" nbt. Editing nbt will come in a future version.
+                            </TextBlock>
+                        </Grid>
+                    </Grid>
+                    <Grid BorderBrush="#E8E8E8" BorderThickness="1" CornerRadius="3" Margin="5" Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xed0e;" Margin="10" VerticalAlignment="Top" />
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Install location" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,10" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Row="1" TextWrapping="Wrap">
+                                You can now open the current install location of minecraft.
                             </TextBlock>
                         </Grid>
                     </Grid>
