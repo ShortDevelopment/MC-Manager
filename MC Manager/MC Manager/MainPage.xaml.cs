@@ -66,6 +66,13 @@ namespace MC_Manager
                     }
                     catch { }
                     break;
+                case "open_docs":
+                    try
+                    {
+                        _ = Launcher.LaunchUriAsync(new System.Uri("https://learn.microsoft.com/en-us/minecraft/creator/"));
+                    }
+                    catch { }
+                    break;
                 case "show_links":
                     rootFrame.Navigate(typeof(Pages.LinksPage));
                     break;

@@ -83,6 +83,12 @@
                     </controls:NavigationViewItem.Icon>
                 </controls:NavigationViewItem>
                 <controls:NavigationViewItemSeparator />
+                <controls:NavigationViewItem Content="Documentation" Tag="open_docs" SelectsOnInvoked="False">
+                    <controls:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE736;" />
+                    </controls:NavigationViewItem.Icon>
+                </controls:NavigationViewItem>
+                <controls:NavigationViewItemSeparator />
                 <controls:NavigationViewItem Content="Links" Tag="show_links">
                     <controls:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xe71b;" />
